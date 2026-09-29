@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8f6f1" />
+  <title>Battesimo di Domenico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ivory:#fbfaf7;
+      --paper:#ffffff;
+      --gold:#b89a58;
+      --gold-soft:#d9c9a0;
+      --ink:#26231f;
+      --muted:#756f65;
+      --line:rgba(184,154,88,.35);
+      --shadow:0 18px 45px rgba(44,38,28,.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(217,201,160,.16), transparent 34%),
+        linear-gradient(180deg,#fff 0%,var(--ivory) 100%);
+      font-family:"Libre Baskerville", Georgia, serif;
+    }
+    body:before{
+      content:"";
+      position:fixed;
+      inset:14px;
+      border:1px solid rgba(184,154,88,.26);
+      pointer-events:none;
+      z-index:30;
+    }
+    .shell{max-width:760px;margin:0 auto;overflow:hidden}
+    section{
+      min-height:100svh;
+      padding:72px 26px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+    }
+    .card{
+      width:100%;
+      max-width:640px;
+      text-align:center;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(184,154,88,.22);
+      box-shadow:var(--shadow);
+      padding:44px 28px;
+      backdrop-filter:blur(8px);
+    }
+    .eyebrow{
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      font-size:.72rem;
+      color:var(--gold);
+      margin-bottom:18px;
+    }
+    h1,h2,h3,.script{
+      font-family:"Cormorant Garamond", Georgia, serif;
+    }
+    h1{
+      margin:.1em 0;
+      font-weight:500;
+      font-size:clamp(3.2rem,13vw,6rem);
+      line-height:.84;
+      letter-spacing:-.03em;
+    }
+    h2{
+      font-size:clamp(2.3rem,8vw,4rem);
+      line-height:1;
+      font-weight:500;
+      margin:.2em 0 .45em;
+    }
+    h3{
+      font-size:1.7rem;
+      font-weight:600;
+      margin:0 0 12px;
+    }
+    p{font-size:.98rem;line-height:1.85;margin:0 auto 1.15em;max-width:560px}
+    .gold{color:var(--gold)}
+    .ornament{
+      width:78px;height:1px;background:var(--gold);
+      margin:24px auto;position:relative
+    }
+    .ornament:after{
+      content:"✦";
+      position:absolute;
+      left:50%;top:50%;
+      transform:translate(-50%,-50%);
+      background:white;color:var(--gold);
+      padding:0 8px;font-size:.72rem
+    }
+    .cross{
+      width:72px;
+      height:92px;
+      margin:0 auto 20px;
+      color:var(--gold);
+    }
+    .cross svg{
+      display:block;
+      width:100%;
+      height:100%;
+      overflow:visible;
+    }
+    .hero{
+      background:
+        linear-gradient(rgba(255,255,255,.2),rgba(255,255,255,.2)),
+        radial-gradient(circle at 50% 30%,rgba(217,201,160,.22),transparent 34%);
+    }
+    .monogram{
+      width:92px;height:92px;border:1px solid var(--gold);
+      border-radius:50%;
+      display:grid;place-items:center;
+      margin:0 auto 26px;
+      font-family:"Cormorant Garamond",serif;
+      font-size:3.1rem;color:var(--gold)
+    }
+    .date-large{
+      font-family:"Cormorant Garamond",serif;
+      font-size:2.1rem;
+      color:var(--gold);
+      margin:15px 0 5px
+    }
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      gap:8px;
+      min-height:48px;
+      padding:13px 22px;
+      border:1px solid var(--gold);
+      background:transparent;
+      color:var(--ink);
+      text-decoration:none;
+      text-transform:uppercase;
+      letter-spacing:.13em;
+      font-size:.72rem;
+      cursor:pointer;
+      transition:.25s ease;
+      font-family:inherit;
+    }
+    .btn:hover,.btn.primary{
+      background:var(--gold);color:white
+    }
+    .scrollhint{
+      position:absolute;bottom:38px;left:50%;transform:translateX(-50%);
+      font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)
+    }
+    .grid{
+      display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:26px 0
+    }
+    .info{
+      padding:22px 16px;border:1px solid var(--line);background:rgba(255,255,255,.62)
+    }
+    .info strong{
+      display:block;font-family:"Cormorant Garamond",serif;font-size:1.4rem;margin-bottom:5px
+    }
+    .countdown{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:28px 0
+    }
+    .countdown div{
+      border-top:1px solid var(--gold-soft);padding:14px 4px 0
+    }
+    .countdown b{
+      display:block;font-family:"Cormorant Garamond",serif;font-size:2rem;color:var(--gold)
+    }
+    .countdown span{font-size:.63rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+    .menu-list{
+      text-align:left;display:grid;gap:10px;margin:28px auto;max-width:520px
+    }
+    .menu-item{
+      padding:15px 16px;border-bottom:1px solid var(--line)
+    }
+    .menu-item b{
+      font-family:"Cormorant Garamond",serif;font-size:1.25rem;font-weight:600
+    }
+    form{text-align:left}
+    label{display:block;font-size:.78rem;letter-spacing:.05em;margin:18px 0 7px;color:#4d473e}
+    input,select,textarea{
+      width:100%;
+      padding:13px 12px;
+      border:1px solid #d8d0bf;
+      background:#fff;
+      color:var(--ink);
+      font:inherit;
+      border-radius:0;
+      outline:none;
+    }
+    input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+    textarea{min-height:88px;resize:vertical}
+    .choice-row{
+      display:grid;grid-template-columns:1fr 1fr;gap:10px
+    }
+    .choice{
+      border:1px solid #d8d0bf;padding:13px;background:#fff;cursor:pointer
+    }
+    .choice input{width:auto;margin-right:7px}
+    .guest{
+      margin:20px 0 0;
+      padding:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.72)
+    }
+    .guest-title{
+      font-family:"Cormorant Garamond",serif;
+      font-size:1.35rem;color:var(--gold);
+      margin-bottom:4px
+    }
+    .note{
+      font-size:.75rem;line-height:1.6;color:var(--muted);margin-top:16px
+    }
+    .hidden{display:none !important}
+    .result{
+      border:1px solid var(--line);padding:20px;background:white;margin-top:20px;white-space:pre-line
+    }
+    .actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px}
+    .footer-mark{font-family:"Cormorant Garamond",serif;font-size:1.5rem;color:var(--gold);margin-top:26px}
+    .angel-mark{display:flex;justify-content:center;align-items:center;color:var(--gold);margin:8px 0 20px}
+
+    .menu-selectable{
+      text-align:left;display:grid;gap:10px;margin:28px auto;max-width:520px
+    }
+    .menu-option{
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap:13px;
+      padding:15px 16px;
+      border:1px solid rgba(184,154,88,.28);
+      background:rgba(255,255,255,.76);
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    .menu-option:hover{border-color:var(--gold)}
+    .menu-option input{
+      appearance:none;
+      -webkit-appearance:none;
+      width:18px;height:18px;
+      min-width:18px;
+      margin:0;
+      border:1px solid var(--gold);
+      border-radius:50%;
+      display:grid;
+      place-content:center;
+      padding:0;
+    }
+    .menu-option input:before{
+      content:"";
+      width:10px;height:10px;
+      border-radius:50%;
+      transform:scale(0);
+      transition:.15s ease;
+      background:var(--gold);
+    }
+    .menu-option input:checked:before{transform:scale(1)}
+    .menu-option:has(input:checked){
+      border-color:var(--gold);
+      background:rgba(217,201,160,.13);
+      box-shadow:inset 0 0 0 1px rgba(184,154,88,.14);
+    }
+    .menu-option b{
+      font-family:"Cormorant Garamond",serif;
+      font-size:1.25rem;
+      font-weight:600;
+    }
+    .guest .menu-selectable{margin:10px 0 18px}
+    .guest .menu-option{padding:12px 13px}
+    .guest .menu-option b{font-size:1.05rem}
+    .send-status{
+      margin-top:14px;
+      font-size:.78rem;
+      line-height:1.55;
+      text-align:center;
+      color:var(--muted);
+    }
+    .send-status.ok{color:#476345}
+    .send-status.error{color:#8a3d36}
+    .btn[disabled]{opacity:.55;cursor:not-allowed}
+
+    @media(max-width:560px){
+      section{padding:58px 20px}
+      .card{padding:34px 20px}
+      .grid{grid-template-columns:1fr}
+      .choice-row{grid-template-columns:1fr}
+      .countdown b{font-size:1.55rem}
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+<section class="hero" id="inicio">
+  <div class="card">
+    <div class="monogram">D</div>
+    <div class="eyebrow">Il Battesimo di</div>
+    <h1>Domenico</h1>
+    <p style="letter-spacing:.16em;text-transform:uppercase;font-size:.72rem">Correa López</p>
+    <div class="ornament"></div>
+    <div class="date-large">25 · 10 · 2026</div>
+    <p>Un giorno di fede, famiglia e amore.</p>
+    <a class="btn primary" href="#messaggio">Ver invitación</a>
+  </div>
+  <div class="scrollhint">Deslice para continuar ↓</div>
+</section>
+
+<section id="messaggio">
+  <div class="card">
+    <div class="cross" aria-label="Cruz cristiana ornamental">
+      <svg viewBox="0 0 72 92" role="img" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M36 8v76" stroke-width="2.2"/>
+          <path d="M16 31h40" stroke-width="2.2"/>
+          <path d="M36 8c-3 4-5 6-8 7 3 1 5 3 8 7 3-4 5-6 8-7-3-1-5-3-8-7Z" stroke-width="1.2"/>
+          <path d="M16 31c4-3 6-5 7-8 1 3 3 5 7 8-4 3-6 5-7 8-1-3-3-5-7-8Z" stroke-width="1.2"/>
+          <path d="M56 31c-4-3-6-5-7-8-1 3-3 5-7 8 4 3 6 5 7 8 1-3 3-5 7-8Z" stroke-width="1.2"/>
+          <path d="M36 84c-3-4-5-6-8-7 3-1 5-3 8-7 3 4 5 6 8 7-3 1-5 3-8 7Z" stroke-width="1.2"/>
+          <circle cx="36" cy="31" r="4" stroke-width="1.1"/>
+          <path d="M36 2v3M36 87v3M10 31H7M65 31h-3" stroke-width="1"/>
+        </g>
+      </svg>
+    </div>
+    <div class="eyebrow">Con grande affetto</div>
+    <h2>Un giorno speciale</h2>
+    <div class="ornament"></div>
+    <p>Mi nombre es <strong>DOMENICO</strong> y soy el lazo más fuerte que une las vidas de mamá y papá.</p>
+    <p>Ellos comprenden la importancia del vínculo espiritual que se consagra a través del Bautismo y, por eso, como familia y con el inmenso cariño que les tenemos, queremos invitarlos a acompañarnos en este <em>giorno speciale</em>.</p>
+    <p>Esperamos contar con su compañía en uno de los primeros acontecimientos importantes de mi vida y compartir juntos este día tan significativo para nuestra familia.</p>
+    <p class="script" style="font-size:1.45rem"><strong>Con tanto affetto,<br>Domenico y famiglia</strong></p>
+  </div>
+</section>
+
+<section id="ceremonia">
+  <div class="card">
+    <div class="eyebrow">La cerimonia</div>
+    <h2>Il Battesimo</h2>
+    <div class="grid">
+      <div class="info">
+        <strong>25 de octubre</strong>
+        <span>Domingo · 2026</span>
+      </div>
+      <div class="info">
+        <strong>9:20 a. m.</strong>
+        <span>Hora de la ceremonia</span>
+      </div>
+    </div>
+    <h3>Parroquia El Sagrado Corazón de Jesús</h3>
+    <p>Nos reuniremos para celebrar el Bautismo de Domenico junto a nuestra familia y las personas que hacen parte de nuestra historia.</p>
+    <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Parroquia+El+Sagrado+Corazon+de+Jesus">Cómo llegar</a>
+
+    <div class="countdown" aria-label="Cuenta regresiva">
+      <div><b id="days">--</b><span>Días</span></div>
+      <div><b id="hours">--</b><span>Horas</span></div>
+      <div><b id="mins">--</b><span>Min</span></div>
+      <div><b id="secs">--</b><span>Seg</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="ristorante">
+  <div class="card">
+    <div class="eyebrow">Dopo la cerimonia</div>
+    <h2>A tavola</h2>
+    <div class="ornament"></div>
+    <p>Después de la ceremonia queremos continuar celebrando juntos alrededor de la mesa, compartiendo uno de los sabores más queridos de la cucina italiana.</p>
+    <h3>Restaurante PAZ</h3>
+    <p>Centro Comercial Unicentro</p>
+    <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Restaurante+PAZ+Unicentro">Ver ubicación</a>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="card">
+    <div class="eyebrow">Il menù</div>
+    <h2>La pasta</h2>
+    <p>Al confirmar su asistencia podrá escoger una opción de plato y una bebida.</p>
+
+    <div class="menu-selectable" id="mainPastaChoices">
+      <label class="menu-option"><input type="radio" name="mainPasta" value="Spaguetti polpetta"><b>Spaguetti polpetta</b></label>
+      <label class="menu-option"><input type="radio" name="mainPasta" value="Fetuccini con pollo al pesto"><b>Fetuccini con pollo al pesto</b></label>
+      <label class="menu-option"><input type="radio" name="mainPasta" value="Fetuccini vegetariano"><b>Fetuccini vegetariano</b></label>
+      <label class="menu-option"><input type="radio" name="mainPasta" value="Spaguetti a la boloñesa"><b>Spaguetti a la boloñesa</b></label>
+      <label class="menu-option"><input type="radio" name="mainPasta" value="Fetuccini a la carbonara"><b>Fetuccini a la carbonara</b></label>
+      <label class="menu-option"><input type="radio" name="mainPasta" value="Fetuccini a la matriciana"><b>Fetuccini a la matriciana</b></label>
+      <label class="menu-option"><input type="radio" name="mainPasta" value="Lasagna mixta"><b>Lasagna mixta</b></label>
+      <label class="menu-option"><input type="radio" name="mainPasta" value="Lasagna boloñesa"><b>Lasagna boloñesa</b></label>
+    </div>
+
+    <div class="ornament"></div>
+    <div class="eyebrow" style="margin-top:26px">Le bevande</div>
+    <h3 style="text-align:center">Bebidas</h3>
+    <div class="menu-selectable" id="mainDrinkChoices">
+      <label class="menu-option"><input type="radio" name="mainDrink" value="Limonada natural"><b>Limonada natural</b></label>
+      <label class="menu-option"><input type="radio" name="mainDrink" value="Coca-Cola"><b>Coca-Cola</b></label>
+      <label class="menu-option"><input type="radio" name="mainDrink" value="Soda"><b>Soda</b></label>
+      <label class="menu-option"><input type="radio" name="mainDrink" value="Ginger"><b>Ginger</b></label>
+      <label class="menu-option"><input type="radio" name="mainDrink" value="Agua"><b>Agua</b></label>
+      <label class="menu-option"><input type="radio" name="mainDrink" value="Club Colombia"><b>Club Colombia</b></label>
+    </div>
+    <p class="note">La selección realizada aquí se aplicará automáticamente al primer invitado de la confirmación y podrá modificarse posteriormente.</p>
+  </div>
+</section>
+
+<section id="rsvp">
+  <div class="card">
+    <div class="eyebrow">RSVP · Conferma</div>
+    <h2>Ti unirai a noi?</h2>
+    
+    <div class="angel-mark" aria-hidden="true">
+      <svg viewBox="0 0 140 120" width="82" height="70" role="img" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="70" cy="28" r="10"></circle>
+          <path d="M58 18c4-7 20-7 24 0"></path>
+          <path d="M61 42c-9 5-14 13-15 23 7-4 12-4 18-1"></path>
+          <path d="M79 42c9 5 14 13 15 23-7-4-12-4-18-1"></path>
+          <path d="M70 39v32"></path>
+          <path d="M58 72c4 11 20 11 24 0"></path>
+          <path d="M64 83l-7 22"></path>
+          <path d="M76 83l7 22"></path>
+          <path d="M62 51c3 2 5 5 8 9"></path>
+          <path d="M78 51c-3 2-5 5-8 9"></path>
+          <path d="M52 49c-11-1-20 4-26 13 9-1 16 2 21 9"></path>
+          <path d="M88 49c11-1 20 4 26 13-9-1-16 2-21 9"></path>
+        </g>
+      </svg>
+    </div>
+
+    <form id="rsvpForm">
+      <label for="hostName">Nombre de quien confirma</label>
+      <input id="hostName" name="hostName" required placeholder="Nombre y apellido" />
+
+      <label>¿Confirma su asistencia?</label>
+      <div class="choice-row">
+        <label class="choice"><input type="radio" name="attendance" value="Sí" required> Sí, asistiré</label>
+        <label class="choice"><input type="radio" name="attendance" value="No"> No podré asistir</label>
+      </div>
+
+      <div id="attendingFields" class="hidden">
+        <label for="guestCount">Número de personas en esta confirmación</label>
+        <select id="guestCount">
+          <option value="1">1 persona</option>
+          <option value="2">2 personas</option>
+          <option value="3">3 personas</option>
+          <option value="4">4 personas</option>
+          <option value="5">5 personas</option>
+          <option value="6">6 personas</option>
+        </select>
+        <div id="guests"></div>
+
+        <label for="notes">Observaciones o restricciones alimentarias</label>
+        <textarea id="notes" placeholder="Opcional"></textarea>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" id="submitBtn" type="submit">Confirmar asistencia</button>
+      </div>
+    </form>
+
+    <div id="resultBox" class="result hidden"></div>
+    <div id="shareActions" class="actions hidden">
+      <button class="btn primary" id="shareBtn" type="button">Compartir por WhatsApp</button>
+      <button class="btn" id="copyBtn" type="button">Copiar confirmación</button>
+    </div>
+
+    <div id="sendStatus" class="send-status"></div><p class="note">Al confirmar, la información se enviará al registro central del evento. El resumen también podrá compartirse por WhatsApp o copiarse.</p>
+
+    <div class="footer-mark">Domenico · 25.10.2026</div>
+  </div>
+</section>
+
+</div>
+
+<script>
+  /*
+    CONFIGURACIÓN POWER AUTOMATE
+    Pegue entre comillas la URL del disparador "When an HTTP request is received".
+    Ejemplo:
+    const POWER_AUTOMATE_URL = "https://prod-xx...logic.azure.com/...";
+
+    Mientras conserve el valor PENDIENTE, la invitación funciona en modo de prueba:
+    prepara el resumen, pero no envía datos a Excel.
+  */
+  const POWER_AUTOMATE_URL = "PENDIENTE_URL_POWER_AUTOMATE";
+
+  // Fecha absoluta del evento: Colombia UTC-5.
+  // Date.UTC evita diferencias de interpretación entre Safari, Chrome, Android e iOS.
+  const EVENT_TIMESTAMP = Date.UTC(2026, 9, 25, 14, 20, 0); // 25 Oct 2026, 09:20 Colombia
+
+  function tick(){
+    const ids = ["days","hours","mins","secs"];
+    if(!ids.every(id => document.getElementById(id))) return;
+
+    let diff = Math.max(0, EVENT_TIMESTAMP - Date.now());
+    const d = Math.floor(diff / 86400000); diff %= 86400000;
+    const h = Math.floor(diff / 3600000); diff %= 3600000;
+    const m = Math.floor(diff / 60000); diff %= 60000;
+    const s = Math.floor(diff / 1000);
+
+    document.getElementById("days").textContent = String(d);
+    document.getElementById("hours").textContent = String(h).padStart(2,"0");
+    document.getElementById("mins").textContent = String(m).padStart(2,"0");
+    document.getElementById("secs").textContent = String(s).padStart(2,"0");
+  }
+  tick();
+  setInterval(tick,1000);
+  document.addEventListener("visibilitychange", tick);
+  window.addEventListener("pageshow", tick);
+  window.addEventListener("focus", tick);
+
+  const pastas = [
+    "Spaguetti polpetta",
+    "Fetuccini con pollo al pesto",
+    "Fetuccini vegetariano",
+    "Spaguetti a la boloñesa",
+    "Fetuccini a la carbonara",
+    "Fetuccini a la matriciana",
+    "Lasagna mixta",
+    "Lasagna boloñesa"
+  ];
+  const drinks = ["Limonada natural","Coca-Cola","Soda","Ginger","Agua","Club Colombia"];
+
+  const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+  const attendingFields = document.getElementById("attendingFields");
+  const guestCount = document.getElementById("guestCount");
+  const guestsWrap = document.getElementById("guests");
+  const submitBtn = document.getElementById("submitBtn");
+  const sendStatus = document.getElementById("sendStatus");
+
+  function radioOptions(name, values, selected=""){
+    return values.map(value => `
+      <label class="menu-option">
+        <input type="radio" name="${name}" value="${value}" ${value === selected ? "checked" : ""} required>
+        <b>${value}</b>
+      </label>`).join("");
+  }
+
+  function getMainSelection(){
+    return {
+      pasta: document.querySelector('input[name="mainPasta"]:checked')?.value || "",
+      drink: document.querySelector('input[name="mainDrink"]:checked')?.value || ""
+    };
+  }
+
+  attendanceRadios.forEach(r => r.addEventListener("change",()=>{
+    attendingFields.classList.toggle("hidden", r.value !== "Sí" || !r.checked);
+  }));
+
+  function buildGuests(){
+    const n = Number(guestCount.value);
+    const previous = [...document.querySelectorAll(".guest")].map(card => ({
+      name: card.querySelector(".gname")?.value || "",
+      pasta: card.querySelector('input[data-kind="pasta"]:checked')?.value || "",
+      drink: card.querySelector('input[data-kind="drink"]:checked')?.value || ""
+    }));
+    const main = getMainSelection();
+
+    guestsWrap.innerHTML="";
+    for(let i=1;i<=n;i++){
+      const prior = previous[i-1] || {};
+      const selectedPasta = prior.pasta || (i===1 ? main.pasta : "");
+      const selectedDrink = prior.drink || (i===1 ? main.drink : "");
+      const div=document.createElement("div");
+      div.className="guest";
+      div.innerHTML=`
+        <div class="guest-title">Invitado ${i}</div>
+        <label>Nombre</label>
+        <input class="gname" required placeholder="Nombre completo" value="${(prior.name || "").replace(/"/g,"&quot;")}">
+
+        <label>Plato</label>
+        <div class="menu-selectable">
+          ${pastas.map(value => `
+            <label class="menu-option">
+              <input type="radio" data-kind="pasta" name="guestPasta_${i}" value="${value}" ${value===selectedPasta ? "checked" : ""} required>
+              <b>${value}</b>
+            </label>`).join("")}
+        </div>
+
+        <label>Bebida</label>
+        <div class="menu-selectable">
+          ${drinks.map(value => `
+            <label class="menu-option">
+              <input type="radio" data-kind="drink" name="guestDrink_${i}" value="${value}" ${value===selectedDrink ? "checked" : ""} required>
+              <b>${value}</b>
+            </label>`).join("")}
+        </div>`;
+      guestsWrap.appendChild(div);
+    }
+  }
+
+  buildGuests();
+  guestCount.addEventListener("change",buildGuests);
+
+  document.querySelectorAll('input[name="mainPasta"], input[name="mainDrink"]').forEach(input => {
+    input.addEventListener("change", () => {
+      const first = document.querySelector(".guest");
+      if(!first) return;
+      if(input.name === "mainPasta"){
+        const target = [...first.querySelectorAll('input[data-kind="pasta"]')].find(r => r.value === input.value);
+        if(target) target.checked = true;
+      }else{
+        const target = [...first.querySelectorAll('input[data-kind="drink"]')].find(r => r.value === input.value);
+        if(target) target.checked = true;
+      }
+    });
+  });
+
+  let currentText="";
+
+  function collectGuests(){
+    return [...document.querySelectorAll(".guest")].map((card, idx) => ({
+      numero: idx + 1,
+      nombre: card.querySelector(".gname").value.trim(),
+      plato: card.querySelector('input[data-kind="pasta"]:checked')?.value || "",
+      bebida: card.querySelector('input[data-kind="drink"]:checked')?.value || ""
+    }));
+  }
+
+  function buildPayload(host, attendance, guests, notes){
+    const now = new Date();
+    return {
+      evento: "Bautismo de Domenico Correa López",
+      fechaEvento: "2026-10-25",
+      horaEvento: "09:20",
+      responsableConfirmacion: host,
+      asistencia: attendance,
+      cantidadPersonas: attendance === "Sí" ? guests.length : 0,
+      invitados: attendance === "Sí" ? guests : [],
+      observaciones: notes || "",
+      fechaRegistroISO: now.toISOString(),
+      zonaHorariaEvento: "America/Bogota",
+      origen: "Micropágina Bautismo Domenico"
+    };
+  }
+
+  function buildSummary(host, attendance, guests, notes){
+    if(attendance === "No"){
+      return `Confirmación Bautismo de Domenico
+
+${host}
+No podré asistir.
+
+Gracias por la invitación.`;
+    }
+    const lines = guests.map((g,idx) =>
+      `${idx+1}. ${g.nombre}
+   Plato: ${g.plato}
+   Bebida: ${g.bebida}`
+    );
+    return `Confirmación Bautismo de Domenico
+25 de octubre de 2026
+
+Confirma: ${host}
+Asistencia: Sí
+
+${lines.join("\n\n")}${notes ? `
+
+Observaciones: ${notes}` : ""}`;
+  }
+
+  async function sendToPowerAutomate(payload){
+    if(!POWER_AUTOMATE_URL || POWER_AUTOMATE_URL.includes("PENDIENTE_URL")){
+      return {mode:"test"};
+    }
+
+    const response = await fetch(POWER_AUTOMATE_URL, {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    });
+
+    if(!response.ok){
+      throw new Error(`Power Automate respondió ${response.status}`);
+    }
+    return {mode:"sent"};
+  }
+
+  document.getElementById("rsvpForm").addEventListener("submit", async (e)=>{
+    e.preventDefault();
+
+    const host=document.getElementById("hostName").value.trim();
+    const attendance=document.querySelector('input[name="attendance"]:checked')?.value;
+    if(!attendance) return;
+
+    const guests = attendance === "Sí" ? collectGuests() : [];
+    const notes = attendance === "Sí" ? document.getElementById("notes").value.trim() : "";
+
+    if(attendance === "Sí"){
+      const invalidGuest = guests.find(g => !g.nombre || !g.plato || !g.bebida);
+      if(invalidGuest){
+        sendStatus.className="send-status error";
+        sendStatus.textContent="Complete nombre, plato y bebida de todos los invitados.";
+        return;
+      }
+    }
+
+    const payload = buildPayload(host, attendance, guests, notes);
+    currentText = buildSummary(host, attendance, guests, notes);
+
+    const box=document.getElementById("resultBox");
+    box.textContent=currentText;
+    box.classList.remove("hidden");
+    document.getElementById("shareActions").classList.remove("hidden");
+
+    submitBtn.disabled=true;
+    submitBtn.textContent="Enviando...";
+    sendStatus.className="send-status";
+    sendStatus.textContent="Registrando confirmación...";
+
+    try{
+      const result = await sendToPowerAutomate(payload);
+      if(result.mode === "test"){
+        sendStatus.className="send-status";
+        sendStatus.textContent="Modo de prueba: la confirmación fue preparada, pero aún debe configurarse la URL de Power Automate para guardarla en Excel.";
+      }else{
+        sendStatus.className="send-status ok";
+        sendStatus.textContent="✓ Confirmación registrada correctamente.";
+        submitBtn.textContent="Confirmación enviada";
+      }
+    }catch(error){
+      console.error(error);
+      sendStatus.className="send-status error";
+      sendStatus.textContent="No fue posible registrar la confirmación. Puede compartir el resumen por WhatsApp y volver a intentarlo.";
+      submitBtn.textContent="Reintentar envío";
+      submitBtn.disabled=false;
+    }
+
+    if(submitBtn.disabled && submitBtn.textContent === "Enviando..."){
+      submitBtn.disabled=false;
+      submitBtn.textContent="Confirmar asistencia";
+    }
+    box.scrollIntoView({behavior:"smooth",block:"center"});
+  });
+
+  document.getElementById("copyBtn").addEventListener("click", async ()=>{
+    try{
+      await navigator.clipboard.writeText(currentText);
+      document.getElementById("copyBtn").textContent="Copiado";
+      setTimeout(()=>document.getElementById("copyBtn").textContent="Copiar confirmación",1400);
+    }catch{
+      const temp=document.createElement("textarea");
+      temp.value=currentText;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand("copy");
+      temp.remove();
+    }
+  });
+
+  document.getElementById("shareBtn").addEventListener("click", async ()=>{
+    if(navigator.share){
+      try{
+        await navigator.share({title:"Confirmación Bautismo de Domenico",text:currentText});
+        return;
+      }catch(e){}
+    }
+    const url="https://wa.me/?text="+encodeURIComponent(currentText);
+    window.open(url,"_blank","noopener");
+  });
+</script>
+</body>
+</html>

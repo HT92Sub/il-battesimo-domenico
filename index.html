@@ -5,6 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#f8f6f1" />
   <title>Battesimo di Domenico</title>
+  <meta name="description" content="Battesimo di Domenico Correa López · 25 ottobre 2026 · Ti unirai a noi?" />
+  <link rel="canonical" href="https://green-tree-0c4996c10.3.azurestaticapps.net/" />
+
+  <!-- Vista previa para WhatsApp y redes sociales -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Battesimo di Domenico" />
+  <meta property="og:title" content="Battesimo di Domenico" />
+  <meta property="og:description" content="25 ottobre 2026 · Un giorno di fede, famiglia e amore. Ti unirai a noi?" />
+  <meta property="og:url" content="https://green-tree-0c4996c10.3.azurestaticapps.net/" />
+  <meta property="og:image" content="https://green-tree-0c4996c10.3.azurestaticapps.net/preview-domenico.jpg" />
+  <meta property="og:image:secure_url" content="https://green-tree-0c4996c10.3.azurestaticapps.net/preview-domenico.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Invitación al bautismo de Domenico Correa López" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Battesimo di Domenico" />
+  <meta name="twitter:description" content="25 ottobre 2026 · Ti unirai a noi?" />
+  <meta name="twitter:image" content="https://green-tree-0c4996c10.3.azurestaticapps.net/preview-domenico.jpg" />
+  <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
@@ -283,6 +303,37 @@
     .send-status.error{color:#8a3d36}
     .btn[disabled]{opacity:.55;cursor:not-allowed}
 
+    .music-toggle{
+      position:fixed;
+      right:22px;
+      bottom:22px;
+      width:48px;
+      height:48px;
+      border-radius:50%;
+      border:1px solid var(--gold);
+      background:rgba(255,255,255,.92);
+      color:var(--gold);
+      display:grid;
+      place-items:center;
+      padding:0;
+      box-shadow:0 10px 30px rgba(44,38,28,.14);
+      cursor:pointer;
+      z-index:60;
+      transition:transform .2s ease, background .2s ease, color .2s ease;
+      backdrop-filter:blur(8px);
+    }
+    .music-toggle:hover{transform:translateY(-1px)}
+    .music-toggle.is-playing{background:var(--gold);color:white}
+    .music-toggle svg{width:20px;height:20px;display:block}
+    .music-credit{
+      margin-top:14px;
+      font-size:.58rem;
+      line-height:1.5;
+      color:var(--muted);
+      opacity:.72;
+      text-align:center;
+    }
+
     @media(max-width:560px){
       section{padding:58px 20px}
       .card{padding:34px 20px}
@@ -293,6 +344,18 @@
   </style>
 </head>
 <body>
+
+<audio id="bgMusic" loop preload="metadata">
+  <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/6/60/Paul_De_Bra_-_Vivaldi%27s_Spring%2C_RV_269_-_II._Largo_%28Accordion_Orchestra%29.ogg/Paul_De_Bra_-_Vivaldi%27s_Spring%2C_RV_269_-_II._Largo_%28Accordion_Orchestra%29.ogg.mp3" type="audio/mpeg">
+  <source src="https://upload.wikimedia.org/wikipedia/commons/6/60/Paul_De_Bra_-_Vivaldi%27s_Spring%2C_RV_269_-_II._Largo_%28Accordion_Orchestra%29.ogg" type="audio/ogg">
+</audio>
+<button id="musicToggle" class="music-toggle" type="button" aria-label="Activar música" title="Música">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M9 18V5l10-2v13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="6.5" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <circle cx="16.5" cy="16" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  </svg>
+</button>
 <div class="shell">
 
 <section class="hero" id="inicio">
@@ -470,6 +533,7 @@
     <div id="sendStatus" class="send-status"></div><p class="note">Al confirmar, la información se enviará al registro central del evento. El resumen también podrá compartirse por WhatsApp o copiarse.</p>
 
     <div class="footer-mark">Domenico · 25.10.2026</div>
+    <p class="music-credit">Música: Antonio Vivaldi, <em>La Primavera – II. Largo</em> · interpretación de Paul De Bra · CC BY 4.0</p>
   </div>
 </section>
 
@@ -761,6 +825,48 @@ Observaciones: ${notes}` : ""}`;
     const url="https://wa.me/?text="+encodeURIComponent(currentText);
     window.open(url,"_blank","noopener");
   });
+
+
+  // Música ambiental: los navegadores móviles requieren una interacción del usuario para reproducir audio.
+  const bgMusic = document.getElementById("bgMusic");
+  const musicToggle = document.getElementById("musicToggle");
+  const invitationButton = document.querySelector('a.btn.primary[href="#messaggio"]');
+  let musicStarted = false;
+
+  function setMusicState(playing){
+    musicToggle.classList.toggle("is-playing", playing);
+    musicToggle.setAttribute("aria-label", playing ? "Pausar música" : "Activar música");
+    musicToggle.setAttribute("title", playing ? "Pausar música" : "Activar música");
+  }
+
+  async function startMusic(){
+    try{
+      bgMusic.volume = 0.20;
+      await bgMusic.play();
+      musicStarted = true;
+      setMusicState(true);
+    }catch(error){
+      // Si el navegador bloquea el audio, el botón flotante permite activarlo manualmente.
+      setMusicState(false);
+    }
+  }
+
+  invitationButton?.addEventListener("click", () => {
+    if(!musicStarted && bgMusic.paused) startMusic();
+  });
+
+  musicToggle?.addEventListener("click", async () => {
+    if(bgMusic.paused){
+      await startMusic();
+    }else{
+      bgMusic.pause();
+      setMusicState(false);
+    }
+  });
+
+  bgMusic?.addEventListener("play", () => setMusicState(true));
+  bgMusic?.addEventListener("pause", () => setMusicState(false));
+
 </script>
 </body>
 </html>
